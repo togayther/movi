@@ -1,0 +1,18 @@
+﻿@using Movi.Model
+
+@{
+    var siteConfig = ViewData["SiteConfig"] as SiteConfig;
+    var copyright = String.Empty;
+    if (siteConfig!=null)
+    {
+        copyright = siteConfig.SiteCopyRight;
+    }
+}
+
+
+<div id="footer">
+    <div class="container">
+        <p class="text-danger pull-left">@(copyright)</p>
+        <p class="text-info pull-right" id="gototop">返回顶部&nbsp;^</p>
+    </div>
+</div>

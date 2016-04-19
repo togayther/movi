@@ -1,0 +1,157 @@
+
+/*--------------start:公用重置--------------*/
+body,button,input,select,textarea{
+    font:12px/24px 'Helvetica Neue',Helvetica,Arial,'宋体', sans-serif;
+}
+html,body {
+    height: 100%;
+}
+body {
+    padding-top: 60px;
+    
+}
+ul {
+    padding: 0px;
+    margin: 0px;
+}
+.navbar {
+    font-size: 14px;
+}
+a {
+    color: #222;
+}
+div.panel.cus-panel-bg {
+    background-color: #f5f5f5;
+    margin-bottom: 10px;
+    border: #f2f2f2;
+}
+div.container {
+    min-width: 480px;
+}
+
+.cus-noresult {
+    margin: 20px auto;
+}
+
+#main {
+    min-height: 100%;
+    height: auto;
+    margin: 0 auto -60px;
+    padding: 0 0 60px;
+}
+
+/*---------------end:公用重置---------------*/
+
+/*--------------start:影片主体--------------*/
+
+.cus-movie-container {
+    margin-bottom: 30px;
+    padding: 10px;
+    border: 1px solid #f2f2f2;
+    box-shadow: 0px 1px 2px #f2f2f2;
+}
+
+.cus-movie-cover,
+ul.cus-movie-infos,
+ul.cus-movie-infos label{
+    display: block;
+    float: left;
+}
+
+.cus-movie-cover img {
+    width: 150px;
+    height: 220px;
+}
+
+ul.cus-movie-infos {
+    height: 220px;
+    overflow: hidden;
+    list-style: none;
+    margin-left: 20px;
+}
+
+ul.cus-movie-infos label {
+    color: #666;
+    font-weight: normal;
+}
+
+ul.cus-movie-infos a {
+    text-decoration: none;
+}
+
+ul.cus-movie-infos li {
+    display: block;
+    overflow: hidden;
+}
+
+ul.cus-movie-infos .cus-movie-name {
+    font-size: 16px;
+    padding-bottom: 2px;
+    border-bottom: 1px solid gray;
+}
+
+ul.cus-movie-infos .cus-movie-name:hover {
+    border-bottom: 1px solid #97310e;
+}
+
+ul.cus-movie-infos .cus-movie-year {
+    font-size: 12px;
+}
+
+ul.cus-movie-infos .cus-movie-actors {
+    display: block;
+    width: 200px;
+    height: 50px;
+    overflow: hidden;
+}
+
+/*--------------end:影片主体----------------*/
+
+/*--------------start:底部页脚--------------*/
+
+#footer {
+    height: 60px;
+    background-color: #f5f5f5;
+}
+
+#footer p {
+    margin: 18px 10px;
+    font-family: verdana;
+}
+
+#gototop {
+    cursor: pointer;
+}
+
+/*--------------end:底部页脚----------------*/
+
+/*--------------start:底部分页--------------*/
+
+div.cus-pagination {
+    padding: 10px 3px;
+    color: #a0a0a0;
+    margin: 0 5px 20px 5px;
+    text-align: left;
+}
+
+div.cus-pagination a {
+    border: #888 1px solid;
+    padding: 5px 10px;
+    color: #444;
+    margin-right: 3px;
+    text-decoration: none;
+}
+
+ div.cus-pagination a:hover {
+     border: #f0f0f0 1px solid;
+     color: #ffffff;
+     background-color: #97310e;
+ }
+
+ div.cus-pagination a:active {
+     border: #f0f0f0 1px solid;
+     color: #ffffff;
+     background-color: #81110e;
+ }
+
+/*--------------end:底部分页--------------*/

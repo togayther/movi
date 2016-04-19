@@ -1,0 +1,81 @@
+﻿
+@model Movi.ViewModel.UserLoginViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>派普影视 - 后台管理</title>
+
+    @Styles.Render("~/Styles/admin")
+
+    @Scripts.Render("~/Scripts/modernizr")
+
+</head>
+<body class="loginck-page">
+    <div id="main">
+        <div class="container">
+            <div class="row">
+                <div class="panel">
+                    <div class="panel-menu">
+                        <span class="glyphicon glyphicon-lock"></span>
+                        &nbsp;已锁定
+                    </div>
+                    @using (Html.BeginForm("Lock", "Admin", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="panel-body">
+                            <div class="login-avatar">
+                                <img src="@(Model.Avatar)" width="150" height="112" alt="avatar"/>
+                                @Html.HiddenFor(model => model.Avatar)
+                            </div>
+                            <div class="login-info">
+                                <span class="login-name">
+                                    <b class="text-primary">
+                                        @(Model.Name)
+                                        @Html.HiddenFor(model => model.Name)
+                                    </b> 
+                                </span> 
+                                <br/>
+                                <span class="login-email">@(Model.Email)</span>
+                                @Html.HiddenFor(model => model.Email)
+                            </div>
+                            <div class="form-group margin-right-sm">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-user"></span>
+                                    </span>
+                                    @Html.PasswordFor(model=>model.Password,new Dictionary<string, object>(){{"class","form-control"},{"placeholder","请输入解锁密码..."}})
+                                </div>
+                            </div>
+                            @if (!ViewData.ModelState.IsValid)
+                            {
+                                <div class="login-alert">
+                                    <div class="alert alert-warning">
+                                        @(Html.ValidationMessage("Global"))
+                                    </div>
+                                </div>    
+                            }
+                        </div>
+                        <div class="panel-footer">
+                            <span class="pull-left" style="padding-top: 7px;">
+                                <a href="@Url.Action("Findpwd","Admin")">忘记密码？</a>
+                            </span>
+                            <div class="form-group margin-bottom-none">
+                                <input class="btn btn-success pull-right" type="submit" value="解锁"/>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/Scripts/framework")
+</body>
+</html>

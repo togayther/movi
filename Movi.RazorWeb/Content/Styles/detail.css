@@ -1,0 +1,87 @@
+/*--------------start:Ó°Æ¬ÏêÏ¸--------------*/
+
+.cus-movie-detail,
+.cus-movie-summary,
+.cus-movie-sources,
+.cus-movie-captions,
+.cus-movie-similars
+ {
+    margin-bottom: 20px;
+}
+
+.cus-movie-detail {
+    margin-top: 20px;
+}
+
+.cus-movie-detail  .cus-movie-cover img {
+    width: 180px;
+    height: auto;
+}
+
+.cus-movie-detail ul.cus-movie-infos {
+    height: auto;
+    margin-left: 30px;
+}
+
+.cus-movie-detail ul.cus-movie-infos .cus-movie-blank {
+    margin-bottom: 20px;     
+}
+
+.cus-movie-detail ul.cus-movie-infos .cus-movie-actors {
+    width: auto;
+    height: auto;
+}
+
+.cus-movie-douban,
+.cus-movie-source-address,
+.cus-movie-caption {
+    color: #97310e;
+}
+
+.cus-movie-douban {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.cus-movie-douban:hover {
+    text-decoration: underline;
+}
+
+.cus-movie-captions {
+    list-style: none;
+}
+
+.cus-movie-captions ul {
+    list-style: none;
+}
+
+.cus-movie-captions ul li a {
+    color: #4A71C6;
+}
+
+.cus-movie-similars .cus-movie-similar {
+    margin: 10px 10px 20px 0;
+    float: left;
+}
+
+.cus-movie-similars .cus-movie-similar img{
+    height: 120px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.cus-movie-similars .cus-movie-similar .cus-movie-similar-name {
+    text-align: center;
+    color: #4A71C6;
+    display: block;
+    width: 85px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cus-movie-comments {
+    
+}
+
+/*--------------start:Ó°Æ¬ÏêÏ¸--------------*/

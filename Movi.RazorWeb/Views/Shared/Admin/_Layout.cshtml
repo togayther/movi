@@ -1,0 +1,312 @@
+﻿@using Movi.Model
+@using Movi.Model.Enums
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>派普影视 - 后台管理</title>
+
+    @Styles.Render("~/Styles/admin")
+
+    @RenderSection("styles", false)
+
+    @Scripts.Render("~/Scripts/modernizr")
+    
+    @{
+        ControllerContext context = this.ViewContext;
+        var controller = context.RouteData.Values["controller"].ToString();
+        var action = context.RouteData.Values["action"].ToString();
+
+        var siteConfig = ViewData["SiteConfig"] as SiteConfig;
+        var loginUser = ViewData["LoginUser"] as User;
+        if (loginUser == null || siteConfig == null)
+        {
+            Response.Redirect("/Admin/login");
+            return;
+        }
+    }
+    
+</head>
+<body>
+    <header class="navbar navbar-fixed-top" role="navigation">
+        <div class="pull-left">
+            <a class="navbar-brand" href="#">
+                <div class="navbar-logo">
+                    <img src="@(siteConfig.SiteLogo)" class="img-responsive" alt="logo" />
+                </div>
+            </a>
+        </div>
+        <div class="pull-right header-btns">
+            <div class="messages-menu">
+                <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown">
+                    <i class="glyphicon glyphicon-comment"></i>&nbsp;<b>4</b>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li class="menu-arrow">
+                        <div class="menu-arrow-up"></div>
+                    </li>
+                    <li class="dropdown-header">Recent Messages <span class="pull-right glyphicons"></span></li>
+                    <li>
+                        <ul class="dropdown-items">
+                            <li>
+                                <div class="item-avatar">
+                                    <img src="/Content/Admins/img/avatars/2.jpg" class="img-responsive" alt="avatar" />
+                                </div>
+                                <div class="item-message">
+                                    <b>Maggie</b> - <small class="text-muted">12 minutes ago</small><br />
+                                    Great work Yesterday!
+                                </div>
+                            </li>
+                            <li>
+                                <div class="item-avatar">
+                                    <img src="/Content/Admins/img/avatars/3.jpg" class="img-responsive" alt="avatar" />
+                                </div>
+                                <div class="item-message">
+                                    <b>Robert</b> - <small class="text-muted">3 hours ago</small><br />
+                                    Is the Titan Project still on?
+                                </div>
+                            </li>
+                            <li>
+                                <div class="item-avatar">
+                                    <img src="/Content/Admins/img/avatars/1.jpg" class="img-responsive" alt="avatar" />
+                                </div>
+                                <div class="item-message">
+                                    <b>Cynthia</b> - <small class="text-muted">14 hours ago</small><br />
+                                    Don't forget about the staff meeting tomorrow
+                                </div>
+                            </li>
+                            <li>
+                                <div class="item-avatar">
+                                    <img src="/Content/Admins/img/avatars/4.jpg" class="img-responsive" alt="avatar" />
+                                </div>
+                                <div class="item-message">
+                                    <b>Matt</b> - <small class="text-muted">2 days ago</small><br />
+                                    Thor Project cancelled, Sorry.
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-footer"><a href="#">View All Messages <i class="fa fa-caret-right"></i></a></li>
+                </ul>
+            </div>
+
+            <div class="alerts-menu">
+                <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown">
+                    <i class="glyphicons glyphicons-bell"></i>&nbsp;<b>3</b>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li class="menu-arrow">
+                        <div class="menu-arrow-up"></div>
+                    </li>
+                    <li class="dropdown-header">Recent Alerts <span class="pull-right glyphicons glyphicons-bell"></span></li>
+                    <li>
+                        <ul class="dropdown-items">
+                            <li>
+                                <div class="item-icon"><i style="color: #0066ad;" class="glyphicons glyphicons-facebook"></i></div>
+                                <div class="item-message"><a href="#">Facebook likes reached <b>8,200</b></a></div>
+                            </li>
+                            <li>
+                                <div class="item-icon"><i style="color: #5cb85c;" class="glyphicons glyphicon-tasks"></i></div>
+                                <div class="item-message"><a href="#">Robert <b>completed task</b> - Client SEO Revamp</a></div>
+                            </li>
+                            <li>
+                                <div class="item-icon"><i style="color: #f0ad4e" class="glyphicons glyphicons-compass"></i></div>
+                                <div class="item-message"><a href="#"><b>Marko</b> logged 12 hours</a></div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown-footer"><a href="#">View All Alerts <i class="fa fa-caret-right"></i></a></li>
+                </ul>
+            </div>
+
+            <div class="btn-group user-menu">
+                <button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown">
+                    <span class="glyphicons glyphicons-user"></span>
+                    &nbsp;
+                    <b>@(loginUser.Name)</b> 
+                </button>
+                <button type="button" class="btn btn-default btn-gradient btn-sm dropdown-toggle padding-none" data-toggle="dropdown">
+                    <img src="@(loginUser.Avatar)" alt="user avatar" width="28" height="28" />
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li class="menu-arrow">
+                        <div class="menu-arrow-up"></div>
+                    </li>
+                    <li class="dropdown-header">
+                        @(loginUser.NickName)
+                        <span class="pull-right glyphicons glyphicons-user"></span>
+                    </li>
+                    <li>
+                        <ul class="dropdown-items">
+                            <li>
+                                <div class="item-icon">
+                                    <i class="glyphicons glyphicons-show_big_thumbnails"></i>
+                                </div>
+                                <a class="item-message" href="@Url.Action("Center","User")">个人中心</a>
+                            </li>
+                            <li>
+                                <div class="item-icon">
+                                    <i class="glyphicons glyphicons-lock"></i>
+                                </div>
+                                <a class="item-message" href="@Url.Action("Lock","Admin")">锁定</a>
+                            </li>
+                            <li class="border-bottom-none">
+                                <div class="item-icon">
+                                    <i class="glyphicons glyphicons-power"></i>
+                                </div>
+                                <a class="item-message" href="@Url.Action("Logout","Admin")">注销</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div id="main">
+        <div id="sidebar">
+            <div id="sidebar-search">
+                <form role="search">
+                    <input type="text" class="search-bar form-control" placeholder="Search" />
+                    <button type="submit" class="btn btn-default hidden"></button>
+                </form>
+                <div class="sidebar-toggle">
+                    <i class="glyphicon glyphicon-resize-horizontal"></i>
+                </div>
+            </div>
+            <div id="sidebar-menu" data-controller="@(controller)" data-action="@(action)">
+                <ul class="nav sidebar-nav">
+                    <li>
+                        <a href="@Url.Action("index","admin",null)">
+                            <i class="glyphicons glyphicons-star"></i>
+                            <span class="sidebar-title">控制面板</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="accordion-toggle" href="#sideEight">
+                            <i class="glyphicons glyphicons-show_lines"></i>
+                            <span class="sidebar-title">内容管理</span>
+                            <span class="caret"></span>
+                        </a>
+                        <ul id="sideEight" class="nav sub-nav">
+                            <li>
+                                <a href="@Url.Action("manageindex","media",new RouteValueDictionary(){{"mtype",MediaType.Movie}})">
+                                    <span class="glyphicons glyphicons-ok_2"></span>影视管理
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("manageindex", "media", new RouteValueDictionary() { { "mtype", MediaType.Cartoon } })">
+                                    <span class="glyphicons glyphicons-ok_2"></span>动漫管理
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("manageindex", "media", new RouteValueDictionary() { { "mtype", MediaType.Teleplay } })">
+                                    <span class="glyphicons glyphicons-ok_2"></span>电视剧管理
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a class="accordion-toggle" href="#resources">
+                            <i class="glyphicons glyphicons-settings"></i>
+                            <span class="sidebar-title">采集管理</span>
+                            <span class="caret"></span>
+                        </a>
+                        <ul id="resources" class="nav sub-nav">
+                            <li>
+                                <a href="#">
+                                    <span class="glyphicons glyphicons-edit"></span>增量采集
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="glyphicons glyphicons-magic"></span>全部采集
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="glyphicons glyphicons-book"></span>自动采集
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a class="accordion-toggle" href="#sideTwo">
+                            <i class="glyphicons glyphicons-vcard"></i>
+                            <span class="sidebar-title">站点统计</span>
+                            <span class="caret"></span>
+                        </a>
+                        <ul id="sideTwo" class="nav sub-nav">
+                            <li>
+                                <a href="@Url.Action("VisitStat","Statistics")">
+                                    <span class="glyphicons glyphicons-link"></span>访问统计
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="glyphicons glyphicons-ok"></span>留言统计
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a class="accordion-toggle" href="#sideOne">
+                            <i class="glyphicons glyphicons-adjust_alt"></i>
+                            <span class="sidebar-title">系统管理</span>
+                            <span class="caret"></span>
+                        </a>
+                        <ul id="sideOne" class="nav sub-nav">
+                            <li>
+                                <a href="#">
+                                    <span class="glyphicons glyphicons-sort"></span>站点配置
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="glyphicons glyphicons-macbook"></span>邮件发送
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("index","user")">
+                                    <span class="glyphicons glyphicons-sort"></span>维护用户
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="glyphicons glyphicons-font"></span>文件上传
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="glyphicons glyphicons-paperclip"></span>系统日志
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="content">
+            <div id="topbar">
+                <ol class="breadcrumb">
+                    <li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
+                    <li><a href="#">首页</a></li>
+                    <li class="active">用户管理</li>
+                </ol>
+            </div>
+            <div class="container">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/Scripts/framework")
+
+    @Scripts.Render("~/Scripts/admin")
+
+    @RenderSection("scripts", false)
+</body>
+</html>

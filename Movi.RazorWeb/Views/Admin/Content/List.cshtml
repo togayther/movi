@@ -1,0 +1,77 @@
+﻿@using Movi.Model
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Admin/_Layout.cshtml";
+
+    var medias = ViewData["Medias"] as List<Media>;
+
+    var mediaType = ViewData["MediaType"].ToString();
+    
+    const string editUrl = "/admin/media/";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-menu">
+                <div class="row">
+                    <div class="col-sm-8 col-md-9 hidden-xs">
+                        @using (Html.BeginForm("Delete", "Media", new RouteValueDictionary { { "p", "" }, { "mtype", mediaType } }, FormMethod.Post, new Dictionary<string, object> { { "class", "form-inline" },{"id","mediaDeleteForm"} }))
+                        {
+                            <a class="btn btn-success btn-sm" href="@Url.Action("Add","Media",new RouteValueDictionary{{mediaType,mediaType}})">
+                                <span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;添加
+                            </a>
+                            
+                           <input type="hidden" name="mtype" value="@(mediaType)"/>
+                            
+                           <button class="btn btn-danger btn-sm" type="submit" id="btnMediaDeleteBatch">
+                             <span class="glyphicon glyphicon-star"></span>删除选中
+                           </button>
+                        }
+
+                        
+
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-3">
+                        @using (Html.BeginForm("ManageSearch", "Media", new RouteValueDictionary { { "p", "" }, { "mtype", mediaType } }, FormMethod.Get, new Dictionary<string, object> { { "class", "form-horizontal" } }))
+                        {
+                            <div class="col-xs-8">
+                                <input type="text" class="form-control input-sm" name="searchkey" placeholder="关键字查询..." />
+                            </div>
+                            <div class="col-xs-4">
+                                <button class="btn btn-success btn-sm" type="submit">查询</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    @if (medias != null && medias.Count > 0)
+                    {
+                        foreach (var media in medias)
+                        {
+                            var edit = editUrl + media.Id;
+                        <div class="col-xs-6 col-sm-3 col-md-2 text-center">
+                            <a href="@(edit)" class="cus-media-list">
+                                <img src="@(media.Cover)" alt="">
+                                <span class="text-center">
+                                    @(media.Name)
+                                    <br />
+                                    @(media.Year) - @(media.Area)
+                                </span>
+                                <input type="checkbox" value="@(media.Id)" name="">
+                            </a>
+                        </div>
+                        }
+                    }
+                </div>
+
+                @{
+                    Html.RenderPartial("_Pager");
+                }
+            </div>
+        </div>
+    </div>
+</div>

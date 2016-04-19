@@ -1,0 +1,58 @@
+﻿@using Movi.Model
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+    @Styles.Render("~/Styles/home")
+}
+
+@{
+    var medias = ViewData["Medias"] as List<Media>;
+    
+    Html.RenderPartial("_Header");
+}
+
+
+<div id="main">
+    <div class="container">
+        @{
+            Html.RenderPartial("_SearchBar");
+        }
+
+        @{
+            Html.RenderPartial("_FilterBar");
+        }
+
+        <div class="row">
+
+            @{
+                if (medias != null && medias.Any())
+                {
+                    foreach (var media in medias)
+                    {
+                        Html.RenderPartial("_ItemRender", media);
+                    }
+                }
+                else
+                {
+                    <div class="col-md-12">
+                        <div class="text-center text-danger cus-noresult">
+                            骚瑞，未查询到相关影片数据...
+                        </div>
+                    </div>
+                }
+            }
+
+        </div>
+
+        @{
+            Html.RenderPartial("_Pager");
+        }
+    </div>
+</div>
+
+@{
+    Html.RenderPartial("_Footer");
+}

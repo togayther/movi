@@ -1,0 +1,152 @@
+﻿@using Movi.Model.Enums
+@model Movi.ViewModel.DashboardViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Admin/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="well">
+            <div class="row">
+                <div class="col-sm-6 col-md-3">
+                    <a style="display: block;" href="@Url.Action("ManageIndex","Media",new RouteValueDictionary(){{"mtype",MediaType.Movie}})">
+                        <div class="console-btn">
+                            <div class="console-icon divider-right">
+                                 <span class="glyphicons glyphicons-cardio"></span> 
+                            </div>
+                            <div class="console-text">
+                                <div class="console-title">影片管理</div>
+                                <div class="console-subtitle">
+                                    自上次登录更新 
+                                    <span class="text-danger">
+                                        @(Model.GrabInfo.MovieGrabCount)
+                                    </span> 条数据 
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <a style="display: block;" href="@Url.Action("ManageIndex","Media",new RouteValueDictionary(){{"mtype",MediaType.Cartoon}})">
+                         <div class="console-btn">
+                        <div class="console-icon divider-right"> <span class="glyphicons glyphicons glyphicons-hdd"></span> </div>
+                        <div class="console-text">
+                            <div class="console-title">动漫管理</div>
+                            <div class="console-subtitle">
+                                自上次登录更新 
+                                <span class="text-danger">
+                                    @(Model.GrabInfo.CartoonGrabCount)
+                                </span> 条数据 
+                            </div>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <a style="display: block;" href="@Url.Action("ManageIndex","Media",new RouteValueDictionary(){{"mtype",MediaType.Teleplay}})">
+                        <div class="console-btn">
+                        <div class="console-icon divider-right"> <span class="glyphicons glyphicons-print"></span> </div>
+                        <div class="console-text">
+                            <div class="console-title">电视剧管理</div>
+                            <div class="console-subtitle">
+                                自上次登录更新 
+                                <span class="text-danger">
+                                    @(Model.GrabInfo.TeleplayGrabCount)
+                                </span> 条数据 
+                            </div>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <div class="console-btn">
+                        <div class="console-icon divider-right"> <span class="glyphicons glyphicons-security_camera"></span> </div>
+                        <div class="console-text">
+                            <div class="console-title">站点统计</div>
+                            <div class="console-subtitle">访问统计，日志信息等 </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="well">
+            <div class="row">
+                <div class="col-md-4">
+                    <span class="text-danger">
+                        本次登录IP：@(Model.LoginInfo.ThisLoginIp)
+                    </span>
+                </div>
+                <div class="col-md-4">
+                    <span class="text-danger">
+                        上次登录IP：@(Model.LoginInfo.LastLoginIp)
+                    </span>
+                </div>
+                <div class="col-md-4">
+                    <span class="text-danger">
+                        上次登录时间：@(Model.LoginInfo.LastLoginTime)
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="well">
+            <div class="row">
+                <div class="col-md-4">
+                    <p class="text-info">站点名称：
+                        <span>
+                            @(Model.SiteInfo.SiteName)
+                        </span>
+                    </p>
+                    <p class="text-info">服务器名称：
+                        <span>
+                            @(Model.SiteInfo.ServerName)
+                        </span>
+                    </p>
+                    <p class="text-info">操作系统：
+                        <span>
+                            @(Model.SiteInfo.OsName)
+                        </span>
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <p class="text-info">物理路径：
+                        <span>
+                            @(Model.SiteInfo.PhysicalPath)
+                        </span>
+                    </p>
+                    <p class="text-info">服务器IP：
+                        <span>
+                            @(Model.SiteInfo.ServerIp)
+                        </span>
+                    </p>
+                    <p class="text-info">IIS环境：
+                        <span>
+                            @(Model.SiteInfo.IISVersion)
+                        </span>
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <p class="text-info">网站域名：
+                        <span>
+                            @(Model.SiteInfo.SiteUrl)
+                        </span>
+                    </p>
+                    <p class="text-info">NET框架版本：
+                        <span>
+                            @(Model.SiteInfo.NetVersion)
+                        </span>
+                    </p>
+                    <p class="text-info">服务器端口：
+                        <span>
+                            @(Model.SiteInfo.ServerPort)
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

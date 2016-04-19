@@ -1,0 +1,91 @@
+﻿@using Movi.Model.Enums
+@model Movi.Model.User
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Admin/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Add", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    if (TempData["Success"] != null && ViewData.ModelState.IsValid)
+    {
+    <div class="alert alert-success alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        @(TempData["Success"])
+    </div>
+    }
+
+    if (!ViewData.ModelState.IsValid)
+    {
+    <div class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        @(Html.ValidationMessage("Global"))
+    </div>
+    }
+
+    <div class="panel">
+        <div class="panel-menu">
+            <i class="glyphicons glyphicons-check"></i>
+            用户添加
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Name)
+                                @Html.TextBoxFor(model => model.Name, new { @class = "form-control input-sm" })
+                                @Html.ValidationMessageFor(model => model.Name, null, new Dictionary<string, object>() { { "class", "text-danger" } })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Password)
+                                @Html.TextBoxFor(model => model.Password, new { @class = "form-control input-sm" })
+                                @Html.ValidationMessageFor(model => model.Password, null, new Dictionary<string, object>() { { "class", "text-danger" } })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NickName)
+                                @Html.TextBoxFor(model => model.NickName, new { @class = "form-control input-sm" })
+                                @Html.ValidationMessageFor(model => model.NickName, null, new Dictionary<string, object>() { { "class", "text-danger" } })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Email)
+                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control input-sm" })
+                                @Html.ValidationMessageFor(model => model.Email, null, new Dictionary<string, object>() { { "class", "text-danger" } })
+                            </div>
+                           
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Phone)
+                                @Html.TextBoxFor(model => model.Phone, new { @class = "form-control input-sm" })
+                                @Html.ValidationMessageFor(model => model.Phone, null, new Dictionary<string, object>() { { "class", "text-danger" } })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Qq)
+                                @Html.TextBoxFor(model => model.Qq, new { @class = "form-control input-sm" })
+                                @Html.ValidationMessageFor(model => model.Qq, null, new Dictionary<string, object>() { { "class", "text-danger" } })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Avatar)
+                                <input type="file" name="AvatarFile" value="" class="form-control"/>
+                                <span class="help-block">1.未指定则设置为系统默认头像...</span>
+                                <span class="help-block">2.上传格式支持 jpg,gif,bmp,png.大小限制为100KB</span>
+                                @Html.ValidationMessageFor(model => model.Avatar, null, new Dictionary<string, object>() { { "class", "text-danger" } })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-footer">
+            <input type="submit" class="btn btn-sm btn-primary" value="提交" />
+        </div>
+    </div>
+}
+

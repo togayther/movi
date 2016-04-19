@@ -1,0 +1,106 @@
+﻿@using Movi.Model
+@using Movi.Model.Enums
+@{
+    var filterAreas = new List<string> { "全部", "美国", "中国大陆", "香港", "日本", "韩国", "法国", "德国", "泰国" };
+    var filterCategories = new List<string> { "全部", "科幻", "动作", "喜剧", "爱情", "剧情", "魔幻", "动画", "悬疑", "惊悚", "战争", "历史" };
+    var filterYears = new List<string> { "全部", "2013", "2011", "2010", "2009", "2008", "2007 ", "2006", "00年代", "90年代", "80年代 ", "70年代" };
+
+    var medias = ViewData["Medias"] as List<Media>;
+
+    var urlRequest = Request.QueryString;
+    var urlCategory = urlRequest["category"];
+    var urlArea = urlRequest["area"];
+    var urlYear = urlRequest["year"];
+    var urlSortField = urlRequest["sort"];
+
+    var mediaType = urlRequest["mtype"];
+    if (ViewData["MediaType"] != null)
+    {
+        mediaType = ViewData["MediaType"].ToString();
+    }
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default cus-panel-bg">
+            <div class="panel-body">
+                <ul class="cus-filter clearfix">
+                    <li class="cus-filter-category">地区：
+                    </li>
+                    @{
+                        foreach (var filterArea in filterAreas)
+                        {
+                        <li @{ if ((urlArea == null && filterArea.Equals("全部")) || filterArea.Equals(urlArea, StringComparison.OrdinalIgnoreCase))
+                               { <text>
+                                class="cus-filter-active"
+                                </text>     } }>
+                            @Html.ActionLink(filterArea, "Index", "Media", new { category = urlCategory, area = filterArea, year = urlYear, mtype = mediaType }, null)
+                        </li>
+
+                        }
+                    }
+                </ul>
+
+                <ul class="cus-filter clearfix">
+                    <li class="cus-filter-category">类型：
+                    </li>
+                    @{
+                        foreach (var filterCategory in filterCategories)
+                        {
+                        <li @{ if ((urlCategory == null && filterCategory.Equals("全部")) || filterCategory.Equals(urlCategory, StringComparison.OrdinalIgnoreCase))
+                               { <text>
+                                class="cus-filter-active"
+                                </text>     } }>
+                            @Html.ActionLink(filterCategory, "Index", "Media", new { category = filterCategory, area = urlArea, year = urlYear, mtype = mediaType }, null)
+                        </li>
+                        }
+                    }
+                </ul>
+
+                <ul class="cus-filter clearfix">
+                    <li class="cus-filter-category">年份：
+                    </li>
+                    @{
+                        foreach (var filterYear in filterYears)
+                        {
+                        <li @{ if ((urlYear == null && filterYear.Equals("全部")) || filterYear.Equals(urlYear, StringComparison.OrdinalIgnoreCase))
+                               { <text>
+                                class="cus-filter-active"
+                                </text>     } }>
+                            @Html.ActionLink(filterYear, "Index", "Media", new { category = urlCategory, area = urlArea, year = filterYear, mtype = mediaType }, null)
+                        </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    @{
+        if (medias != null && medias.Any())
+        {
+        <div class="col-md-12 cus-sorter-bar">
+            <div class="btn-group btn-group-sm pull-right cus-sort-wrap">
+                <span>排序：</span>
+                @{
+            var field = SortField.AddTime;
+            if (!String.IsNullOrEmpty(urlSortField))
+            {
+                Enum.TryParse(urlSortField, out field);
+            }
+                }
+
+                @Html.ActionLink("资源上传", "Index", "Media", new { category = urlCategory, area = urlArea, year = urlYear, sort = SortField.AddTime, mtype = mediaType }, (field == SortField.AddTime ? new { @class = "active" } : null))
+
+                @Html.ActionLink("上映时间", "Index", "Media", new { category = urlCategory, area = urlArea, year = urlYear, sort = SortField.Year, mtype = mediaType }, (field == SortField.Year ? new { @class = "active" } : null))
+
+                @Html.ActionLink("等级评分", "Index", "Media", new { category = urlCategory, area = urlArea, year = urlYear, sort = SortField.Rank, mtype = mediaType }, (field == SortField.Rank ? new { @class = "active" } : null))
+
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        }
+    }
+
+</div>

@@ -1,0 +1,2 @@
+start bin/mongod.exe --dbpath .\db --logpath .\log\log.log --auth --port 27627
+start bin/mongo.exe --port 27627 -u movi -p admin --authenticationDatabase movi

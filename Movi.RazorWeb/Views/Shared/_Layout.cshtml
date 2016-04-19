@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    @using Movi.Model
+    @{
+        var siteConfig = ViewData["SiteConfig"] as SiteConfig;
+
+        var media = ViewData["Media"] as Media;
+
+        if (siteConfig != null)
+        {
+            var entityName = (media == null ? "" : media.Name);
+            var title = String.Format(siteConfig.SiteTitle, entityName);
+            var keywords = String.Format(siteConfig.SiteKeywords, entityName);
+            var descr = String.Format(siteConfig.SiteDescr, entityName);
+            <text>
+                <title>@(title)</title>
+                <meta name="keywords" content="@(keywords)" />
+                <meta name="description" content="@(descr)" />
+            </text>
+        }
+        else
+        {
+            <title>派普影院 - 阅尽天下影片，心中自然无码</title>
+        }
+    }
+
+    @Styles.Render("~/Styles/framework")
+
+    @RenderSection("styles", false)
+
+    @Scripts.Render("~/Scripts/modernizr")
+</head>
+<body>
+    @RenderBody()
+
+    @Scripts.Render("~/Scripts/framework")
+    @Scripts.Render("~/Scripts/common")
+    @RenderSection("scripts", false)
+</body>
+</html>

@@ -1,0 +1,267 @@
+﻿
+@using Movi.Model
+@using Movi.Model.Enums
+@using Webdiyer.WebControls.Mvc;
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+    @Styles.Render("~/Styles/detail")
+}
+
+@section scripts{
+    @Scripts.Render("~/Scripts/detail")
+}
+
+@{
+    Html.RenderPartial("_Header");
+
+    var media = ViewData["Media"] as Media;
+    var similarMedias = ViewData["SimilarMedias"] as List<Media>;
+    
+    
+    var urlRequest = Request.QueryString;
+    var mediaType = urlRequest["mtype"];
+    if (ViewData["MediaType"] != null)
+    {
+        mediaType = ViewData["MediaType"].ToString();
+    }
+
+    MediaType mtype;
+    var displayMediaType = String.Empty;
+    if (Enum.TryParse(mediaType, out mtype))
+    {
+        switch (mtype)
+        {
+            case MediaType.Movie:
+                displayMediaType = "电影";
+                break;
+            case MediaType.Cartoon:
+                displayMediaType = "动漫";
+                break;
+            case MediaType.Teleplay:
+                displayMediaType = "电视剧";
+                break;
+            default:
+                displayMediaType = "电影";
+                break;
+        }
+    }
+}
+
+<div id="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                @{
+                    if (media != null)
+                    {
+                        <div class="cus-movie-detail">
+                            <a href="#" class="cus-movie-cover">
+                                <img src="@(media.Cover)" alt="@(media.Name)" />
+                            </a>
+
+                            <ul class="cus-movie-infos">
+                                <li class="cus-movie-blank">
+                                    <a class="cus-movie-name">
+                                        <span>
+                                            @(media.Name)  -
+                                            <span class="cus-movie-year">
+                                                @(media.Year)
+                                            </span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <label>别名：</label>
+                                    <span class="cus-movie-year">
+                                        @(String.IsNullOrEmpty(media.AnotherName) ? media.Name : media.AnotherName)
+                                    </span>
+                                </li>
+                                <li>
+                                    <label>类型：</label>
+                                    <span>
+                                        @(media.CategoriesSerialized)
+                                    </span>
+                                </li>
+
+                                <li>
+                                    <label>时长：</label>
+                                    <span>
+                                        @(media.Mins) 分钟
+                                    </span>
+                                </li>
+
+                                <li class="cus-movie-blank">
+                                    <label>评分：</label>
+                                    <span class="cus-movie-rank-raty" data-rank="@(media.Rank)"></span>
+                                    <span>@(media.Rank)</span>
+                                    <a href="@(media.OuterLink)" class="cus-movie-douban" target="_blank">
+                                        豆瓣上已有 @(media.ViewCount) 人观看
+                                    </a>
+                                </li>
+                                <li>
+                                    <label>语言：</label>
+                                    <span>
+                                        @(String.IsNullOrEmpty(media.Language) ? "未知" : media.Language)
+                                    </span>
+                                </li>
+                                <li>
+                                    <label>主演：</label>
+                                    <span class="cus-movie-actors">
+                                        @(media.ActorsSerialized)
+                                    </span>
+                                </li>
+                                <li>
+                                    <label>导演：</label>
+                                    @(media.Director)
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="cus-movie-summary">
+                            @(media.Summary)
+                        </div>
+
+                        <div class="cus-movie-sources">
+                            @{
+                        if (media.Resources != null && media.Resources.Any())
+                                {
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <th>
+                                                    品质
+                                                </th>
+                                                <th>
+                                                    大小
+                                                </th>
+                                                <th>
+                                                    下载地址
+                                                </th>
+                                            </tr>
+                                            @{
+                                    foreach (var resource in media.Resources)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @(resource.Quality)
+                                                        </td>
+                                                        <td>
+                                                            @(resource.Size)
+                                                        </td>
+                                                        <td>
+                                                            <a href="@(resource.Address)" class="cus-movie-source-address">
+                                                                @(String.IsNullOrEmpty(resource.Name) ? resource.Address : resource.Name)
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">骚瑞，未查询到相关@(displayMediaType)种子信息...</span>
+                                }
+                            }
+                        </div>
+
+                        <div class="cus-movie-captions">
+                            <table class="table" data-movie-name="@(media.Name)">
+                                <tr>
+                                    <th>
+                                        相关字幕下载
+                                    </th>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="cus-movie-similars">
+                            <table class="table" data-movie-name="@(media.Name)">
+                                <tr>
+                                    <th>
+                                        类似@(displayMediaType)推荐
+                                    </th>
+                                </tr>
+
+                                @{
+                        if (similarMedias != null && similarMedias.Any())
+                                    {
+                                        <tr>
+                                            <td>
+                                                @{
+                                        foreach (var similar in similarMedias)
+                                                    {
+                                                        var detailHref = "/media/" + similar.Id;
+                                                        <div class="cus-movie-similar">
+                                                            <a href="@(detailHref)" target="_self">
+                                                                <img src="@(similar.Cover)" alt="@(similar.Name)" title="@(similar.Name)" />
+                                                            </a>
+                                                            <a href="@(detailHref)" target="_self" class="cus-movie-similar-name" title="@(similar.Name)">
+                                                                <span>
+                                                                    @(similar.Name)
+                                                                </span>
+                                                            </a>
+                                                        </div>
+                                                    }
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td>
+                                                <span class="text-muted">骚瑞，未查询到类似@(displayMediaType)...</span>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+                            </table>
+                        </div>
+                    
+                        <div class="cus-movie-comments">
+                            <table class="table" data-movie-name="@(media.Name)">
+                                <tr>
+                                    <th>
+                                        评论与反馈
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="ds-thread" data-thread-key="@(media.Id)" data-title="@(media.Name)" data-url="/media/@(media.Id)">
+                                            
+                                        </div>
+                                        <script type="text/javascript">
+                                            var duoshuoQuery = { short_name: "piep" };
+                                            (function () {
+                                                var ds = document.createElement('script');
+                                                ds.type = 'text/javascript'; ds.async = true;
+                                                ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                                                ds.charset = 'UTF-8';
+                                                (document.getElementsByTagName('head')[0]
+                                                    || document.getElementsByTagName('body')[0]).appendChild(ds);
+                                            })();
+                                        </script>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@{
+    Html.RenderPartial("_Footer");
+}

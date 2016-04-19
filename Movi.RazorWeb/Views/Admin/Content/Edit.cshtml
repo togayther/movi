@@ -1,0 +1,298 @@
+﻿@model Movi.Model.Media
+@{
+    Layout = "~/Views/Shared/Admin/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Edit", "Media", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    if (TempData["Success"] != null && ViewData.ModelState.IsValid)
+    {
+    <div class="alert alert-success alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        @(TempData["Success"])
+    </div>
+    }
+
+    if (!ViewData.ModelState.IsValid)
+    {
+    <div class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        @(Html.ValidationMessage("Global"))
+    </div>
+    }
+
+    <div class="panel-group accordion" id="mediaDetail">
+        <div class="panel">
+            <div class="panel-menu">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#mediaDetail" href="#accord_baseinfo">
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.Type)
+                    <i class="glyphicon glyphicon-tags"></i>&nbsp;&nbsp;基本信息
+                </a>
+            </div>
+            <div id="accord_baseinfo" class="panel-collapse collapsed in">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Name)
+                                @Html.TextBoxFor(model => model.Name, new { @class = "form-control input-sm" })
+                                @Html.ValidationMessageFor(model => model.Name, null, new Dictionary<string, object>() { { "class", "text-danger" } })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.AnotherName)
+                                @Html.TextBoxFor(model => model.AnotherName, new { @class = "form-control input-sm" })
+                                @Html.ValidationMessageFor(model => model.AnotherName, null, new Dictionary<string, object>() { { "class", "text-danger" } })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Area)
+                                @Html.TextBoxFor(model => model.Area, new { @class = "form-control input-sm" })
+                                @Html.ValidationMessageFor(model => model.Area, null, new Dictionary<string, object>() { { "class", "text-danger" } })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Language)
+                                @Html.TextBoxFor(model => model.Language, new { @class = "form-control input-sm" })
+                                @Html.ValidationMessageFor(model => model.Language, null, new Dictionary<string, object>() { { "class", "text-danger" } })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Director)
+                                @Html.TextBoxFor(model => model.Director, new { @class = "form-control input-sm" })
+                                @Html.ValidationMessageFor(model => model.Director, null, new Dictionary<string, object>() { { "class", "text-danger" } })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Year)
+                                @Html.TextBoxFor(model => model.Year, new { @class = "form-control input-sm" })
+                                @Html.ValidationMessageFor(model => model.Year)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.AddTime)
+                                @Html.TextBoxFor(model => model.AddTime, new { @class = "form-control input-sm" })
+                                @Html.ValidationMessageFor(model => model.AddTime)
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Mins)
+                                @Html.TextBoxFor(model => model.Mins, new { @class = "form-control input-sm" })
+                                @Html.ValidationMessageFor(model => model.Mins)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ViewCount)
+                                @Html.TextBoxFor(model => model.ViewCount, new { @class = "form-control input-sm" })
+                                @Html.ValidationMessageFor(model => model.ViewCount)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Rank)
+                                @Html.TextBoxFor(model => model.Rank, new { @class = "form-control input-sm" })
+                                @Html.ValidationMessageFor(model => model.Rank)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.OuterLink)
+                                @Html.TextBoxFor(model => model.OuterLink, new { @class = "form-control input-sm" })
+                                @Html.ValidationMessageFor(model => model.OuterLink)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CategoriesSerialized)
+                                @Html.TextBoxFor(model => model.CategoriesSerialized, new { @class = "form-control input-sm" })
+                                @Html.ValidationMessageFor(model => model.CategoriesSerialized)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ActorsSerialized)
+                                @Html.TextBoxFor(model => model.ActorsSerialized, new { @class = "form-control input-sm" })
+                                @Html.ValidationMessageFor(model => model.ActorsSerialized)
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.GrabSource)
+                                @Html.TextBoxFor(model => model.GrabSource, new { @class = "form-control input-sm" })
+                                @Html.ValidationMessageFor(model => model.GrabSource)
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel">
+            <div class="panel-menu">
+                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#mediaDetail" href="#accord_attachinfo">
+                    <i class="glyphicon glyphicon-magnet"></i>&nbsp;&nbsp;附加信息
+                </a>
+            </div>
+            <div id="accord_attachinfo" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Cover)
+                                        @Html.TextBoxFor(model => model.Cover, new { @class = "form-control input-sm", id = "txtCoverUrl" })
+                                        @Html.ValidationMessageFor(model => model.Cover, null, new Dictionary<string, object>() { { "class", "text-danger" } })
+                                    </div>
+                                    <div class="cus-media-edit-cover">
+                                        <img src="@(Model.Cover)" alt="" id="imgCoverShow" />
+                                    </div>
+                                    <div class="text-center margin-top-sm">
+                                        <button class="btn btn-danger btn-xs" id="btnCheckCoverUrl">检测地址</button>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.LocalCover)
+                                        @Html.TextBoxFor(model => model.LocalCover, new { @class = "form-control input-sm", id = "txtLocalCoverUrl" })
+                                        @Html.ValidationMessageFor(model => model.LocalCover)
+                                    </div>
+                                    <div class="cus-media-edit-cover">
+                                        <img src="@(Model.LocalCover)" alt="" id="imgLocalCoverShow" />
+                                    </div>
+                                    <div class="text-center margin-top-sm">
+                                        <button class="btn btn-danger btn-xs" id="btnDownloadCover">下载图片至本地</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Summary)
+                                @Html.TextAreaFor(model => model.Summary, new { @class = "form-control input-sm", rows = "13" })
+                                @Html.ValidationMessageFor(model => model.Summary)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel">
+            <div class="panel-menu">
+                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#mediaDetail" href="#accord_resourceinfo">
+                    <i class="glyphicon glyphicon-briefcase"></i>&nbsp;&nbsp;资源信息
+                </a>
+            </div>
+            <div id="accord_resourceinfo" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>
+                                    资源列表 
+                                        <a href="#" class="btn btn-danger btn-xs margin-left-lg" id="btnAddMediaResource">添加
+                                        </a>
+                                    <a href="#" class="btn btn-danger btn-xs margin-left-sm" id="btnSubmitMediaResource" style="display: none;">提交
+                                    </a>
+                                </label>
+                                <div class="well well-sm" id="mediaResourceAddForm" style="display: none;">
+                                    <div class="form-group">
+                                        <label>质量</label>
+                                        <input type="text" value="" class="form-control input-sm resource_quality" placeholder="常用的如：1080P、720P、HR-HDTV、HDTV、MP4、RMVB等...">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>大小</label>
+                                        <input type="text" value="" class="form-control input-sm resource_size" placeholder="单位为GB或MB...">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>名称</label>
+                                        <input type="text" value="" class="form-control input-sm resource_name" placeholder="资源名称不能为空...">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>地址</label>
+                                        <input type="text" value="" class="form-control input-sm resource_address" placeholder="资源地址不能为空...">
+                                    </div>
+                                </div>
+
+                                <table class="table table-bordered" id="tblMediaResources">
+                                    <thead>
+                                        <tr>
+                                            <th>品质
+                                            </th>
+                                            <th>大小
+                                            </th>
+                                            <th>下载地址
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model != null && Model.Resources != null && Model.Resources.Any())
+                                        {
+                                            for (var i = 0; i < Model.Resources.Count; i++)
+                                            {
+                                                var resource = Model.Resources[i];
+                                            <tr>
+                                                <td>
+                                                    <input type="hidden" name="Resources[@(i)].Id" value="@(resource.Id)" />
+                                                    <input type="hidden" name="Resources[@(i)].Quality" value="@(resource.Quality)" />
+                                                    <input type="hidden" name="Resources[@(i)].Size" value="@(resource.Size)" />
+                                                    <input type="hidden" name="Resources[@(i)].Address" value="@(resource.Address)" />
+                                                    <input type="hidden" name="Resources[@(i)].Name" value="@(resource.Name)" />
+                                                    @(resource.Quality)
+                                                </td>
+                                                <td>
+                                                    @(resource.Size)
+                                                </td>
+                                                <td>
+                                                    <a href="@(resource.Address)" class="cus-movie-source-address">
+                                                        @(resource.Name)
+                                                    </a>
+                                                </td>
+                                                <td class="text-center">
+                                                    <button class="btn btn-danger btn-xs btnMediaResourceDel">删除</button>
+                                                </td>
+                                            </tr>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <tr>
+                                                <td colspan="4">
+                                                    <div class="alert alert-warning">未查询到相关媒体的资源信息！</div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="well well-sm">
+        <input type="submit" name="name" class="btn btn-sm btn-success" value="更新" />
+    </div>
+}
+
+<!--数据模板-->
+
+<script type="text/x-dot-template" id="tmplResource">
+    <tr>
+        <td>
+            <input type="hidden" name="Resources[{{=it.index}}].Id" value="{{=it.Id}}" />
+            <input type="hidden" name="Resources[{{=it.index}}].Quality" value="{{=it.Quality}}" />
+            <input type="hidden" name="Resources[{{=it.index}}].Size" value="{{=it.Size}}" />
+            <input type="hidden" name="Resources[{{=it.index}}].Address" value="{{=it.Address}}" />
+            <input type="hidden" name="Resources[{{=it.index}}].Name" value="{{=it.Name}}" />
+            {{=it.Quality}}
+        </td>
+        <td>
+            {{=it.Size}}
+        </td>
+        <td>
+            <a href="{{=it.Address}}" class="cus-movie-source-address">
+                {{=it.Name}}
+            </a>
+        </td>
+        <td class="text-center">
+            <button class="btn btn-danger btn-xs btnMediaResourceDel">删除</button>
+        </td>
+    </tr>
+</script>
+
+
+
+

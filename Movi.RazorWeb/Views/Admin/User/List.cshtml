@@ -1,0 +1,114 @@
+﻿@using Movi.Model
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Admin/_Layout.cshtml";
+    var users = ViewData["Users"] as List<User>;
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel">
+            <div class="panel-menu">
+                <i class="glyphicons glyphicons-show_big_thumbnails"></i>
+                管理员列表
+            </div>
+
+            <div class="panel-body">
+
+
+                <table class="table table-striped" id="datatable">
+
+                    <thead>
+                        <tr role="row">
+                            <th></th>
+                            <th>名称</th>
+                            <th>状态</th>
+                            <th class="hidden-xs">联系方式</th>
+                            <th class="hidden-xs">最近登录</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @if (users != null && users.Any())
+                        {
+                            foreach (var user in users)
+                            {
+                            <tr>
+                                <td class="text-center">
+                                    <img src="@(user.Avatar)" width="50" height="50" alt="avatar">
+                                </td>
+                                <td>
+                                    <span class="text-info">
+                                        <i class="glyphicons glyphicons-share"></i>
+                                        <b>@(user.NickName)</b>
+                                    </span>
+                                    <br />
+                                    <span class="text-muted">
+                                        @(user.Name)
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="text-muted">
+                                        <i class="glyphicons @(user.IsLock ? "glyphicons-lock" : "glyphicons-ok") "></i>
+                                        &nbsp;@(user.IsLock ? "已锁定" : "正常")
+                                    </span>
+                                </td>
+                                <td class="hidden-xs">
+                                    <span class="text-muted">
+                                        <i class="glyphicons glyphicon-envelope"></i>
+                                        &nbsp;@(user.Email)
+                                    </span>
+                                    <br />
+                                    <span class="text-muted">
+                                        <i class="glyphicons glyphicons-iphone_shake"></i>
+                                        &nbsp;@(String.IsNullOrEmpty(user.Phone)?"未查询到用户手机号码":user.Phone)
+                                    </span>
+                                </td>
+                                <td class="hidden-xs">
+                                    <span class="text-muted">
+                                        <i class="glyphicons glyphicons-direction"></i>
+                                        &nbsp;@(String.IsNullOrEmpty(user.LastLoginIp) ? "无最近登录IP信息" : user.LastLoginIp)
+                                    </span>
+                                    <br />
+                                    <span class="text-muted">
+                                        <i class="glyphicons glyphicons-history"></i>
+                                        &nbsp;@(user.LastLoginTime == default(DateTime) ?
+                                                      "无最近登录时间信息" :
+                                                      user.LastLoginTime.ToString("yyyy-MM-dd HH:mm:ss"))
+                                    </span>
+                                </td>
+                                <td class="text-right text-center">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                    <a href="@Url.Action("Edit","User",new RouteValueDictionary(){{"uid",user.Id}})">
+                                        详细 
+                                    </a>
+                                </td>
+                            </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="6">
+                                    <div class="alert alert-info">
+                                        未查询到相关用户信息.
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="panel-footer">
+
+                <a href="@Url.Action("Add", "User")" class="btn btn-sm btn-success margin-left-lg">添加</a>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>

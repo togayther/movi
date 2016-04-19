@@ -1,0 +1,84 @@
+﻿@using System.Activities.Statements
+@using Movi.Model
+@using Movi.Model.Enums
+@model Movi.ViewModel.VisitStatViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Admin/_Layout.cshtml";
+
+    var config = ViewData["SiteConfig"] as SiteConfig;
+}
+
+<div class="panel">
+    <div class="panel-menu">
+        <i class="glyphicons glyphicons-edit"></i>
+        &nbsp;访问统计
+        @if (config != null)
+        {
+            <span>
+                （过去 @config.VisitStatDays 天数据）
+            </span>
+        }
+    </div>
+    <div class="panel-body">
+        <div id="stat-chart" data-source="@(Model.All.ChartData)" style="height: 300px; width: 100%; padding: 0; position: relative;">
+
+        </div>
+    </div>
+
+    <div class="panel-footer">
+        <div class="row">
+            
+
+            <div class="col-xs-6 col-sm-3 text-center">
+                <div class="chart-btn">
+                    <div class="chart-icon">
+                        <span class="sparkline-delay" data-source="@(Model.Bookmark.ChartData)" data-delay="300"></span> 
+                    </div>
+                    <div class="chart-text">
+                        <div class="chart-title">@(Model.Bookmark.Count)</div>
+                        <div class="chart-subtitle">@(Model.Bookmark.ChartName)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-3 text-center">
+                <div class="chart-btn">
+                    <div class="chart-icon">
+                        <span class="sparkline-delay" data-source="@(Model.Baidu.ChartData)" data-delay="300"></span>
+                    </div>
+                    <div class="chart-text">
+                        <div class="chart-title">@(Model.Baidu.Count)</div>
+                        <div class="chart-subtitle">@(Model.Baidu.ChartName)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-3 text-center">
+                <div class="chart-btn">
+                    <div class="chart-icon">
+                        <span class="sparkline-delay" data-source="@(Model.Other.ChartData)" data-delay="300"></span> 
+                    </div>
+                    <div class="chart-text">
+                        <div class="chart-title">@(Model.Other.Count)</div>
+                        <div class="chart-subtitle">@(Model.Other.ChartName)</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-xs-6 col-sm-3 text-center">
+                <div class="chart-btn">
+                    <div class="chart-icon">
+
+                    </div>
+                    <div class="chart-text">
+                        <div class="chart-title">@(Model.TotalVisitCount)</div>
+                        <div class="chart-subtitle">总访问量</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

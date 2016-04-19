@@ -1,0 +1,56 @@
+﻿@using Movi.Model.Enums
+@{
+    var urlRequest = Request.QueryString;
+    var searchKey = urlRequest["searchkey"];
+
+    var totalMediaCount = ViewData["MediaCount"];
+    
+    var mediaType = urlRequest["mtype"];
+    if (ViewData["MediaType"] != null)
+    {
+        mediaType = ViewData["MediaType"].ToString();
+    }
+
+    MediaType mtype;
+    var displayMediaType = String.Empty;
+    if (Enum.TryParse(mediaType, out mtype))
+    {
+        switch (mtype)
+        {
+            case MediaType.Movie:
+                displayMediaType = "电影";
+                break;
+            case MediaType.Cartoon:
+                displayMediaType = "动漫";
+                break;
+            case MediaType.Teleplay:
+                displayMediaType = "电视剧";
+                break;
+            default:
+                displayMediaType = "电影";
+                break;
+        }
+    }
+    
+}
+
+<div class="row cus-search-bar">
+    <div class="col-md-8">
+        <div class="cus-top-hint">本站已有 <span class="cus-top-hint-total">@(totalMediaCount)</span> 部@(displayMediaType)的高清下载。</div>
+    </div>
+
+    <div class="col-lg-4">
+
+        @using (Html.BeginForm("Search", "Media", new RouteValueDictionary { { "p", "" }, { "mtype", mediaType } }, FormMethod.Get))
+        {
+            <div class="input-group">
+                <input type="text" class="form-control input-sm" name="searchKey" value="@(searchKey)" placeholder="关键字查询...">
+                <input type="hidden" value="@(mediaType)" name="mtype"/>
+                <span class="input-group-btn">
+                    <button class="btn btn-default btn-sm" type="submit">查询</button>
+                </span>
+            </div>
+        }
+
+    </div>
+</div>

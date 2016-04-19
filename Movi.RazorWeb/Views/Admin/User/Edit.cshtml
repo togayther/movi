@@ -1,0 +1,110 @@
+﻿@using System.Activities.Statements
+@using Movi.Model.Enums
+@model Movi.ViewModel.UserEditViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Admin/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Edit", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    if (TempData["Success"] != null && ViewData.ModelState.IsValid)
+    {
+    <div class="alert alert-success alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        @(TempData["Success"])
+    </div>
+    }
+
+    if (!ViewData.ModelState.IsValid)
+    {
+    <div class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        @(Html.ValidationMessage("Global"))
+        @Html.ValidationSummary()
+    </div>
+    }
+
+    <div class="panel">
+        <div class="panel-menu">
+            <i class="glyphicons glyphicons-edit"></i>
+            用户编辑
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="well well-sm">
+
+                        @Html.HiddenFor(model => model.Id)
+                        @Html.HiddenFor(model => model.Avatar)
+
+                        <div class="pull-left thumbnail margin-bottom-none">
+                            <img src="@(Model.Avatar)" alt="" />
+                        </div>
+
+                        <div class="pull-left margin margin-bottom-none">
+                            <p>
+                                <input type="checkbox" class="checkSwitchState" data-target="IsLock" @(Model.IsLock ? "" : "checked")>
+                                <input type="hidden" name="IsLock" value="@(Model.IsLock?"true":"false")" />
+                            </p>
+                            <p>
+                                @Html.DisplayNameFor(model => model.AddTime)
+                                ：
+                                @(Model.AddTime.ToString("yyyy-MM-dd HH:mm:ss"))
+                            </p>
+                            <p>
+                                最近登录：
+                                @(Model.LastLoginTime == default(DateTime) ? "无最近登录时间信息" : Model.LastLoginTime.ToString("yyyy-MM-dd HH:mm:ss"))
+                                /
+                                @(String.IsNullOrEmpty(Model.LastLoginIp)? "未最近登录IP信息" : Model.LastLoginIp)
+                            </p>
+
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NickName)
+                                @Html.TextBoxFor(model => model.NickName, new { @class = "form-control input-sm" })
+                                @Html.ValidationMessageFor(model => model.NickName, null, new Dictionary<string, object>() { { "class", "text-danger" } })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Email)
+                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control input-sm" })
+                                @Html.ValidationMessageFor(model => model.Email, null, new Dictionary<string, object>() { { "class", "text-danger" } })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Phone)
+                                @Html.TextBoxFor(model => model.Phone, new { @class = "form-control input-sm" })
+                                @Html.ValidationMessageFor(model => model.Phone, null, new Dictionary<string, object>() { { "class", "text-danger" } })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Qq)
+                                @Html.TextBoxFor(model => model.Qq, new { @class = "form-control input-sm" })
+                                @Html.ValidationMessageFor(model => model.Qq, null, new Dictionary<string, object>() { { "class", "text-danger" } })
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Avatar)
+                                <input type="file" name="AvatarFile" value="" class="form-control" />
+                                <span class="help-block">1.未指定则设置为系统默认头像...</span>
+                                <span class="help-block">2.上传格式支持 jpg,gif,bmp,png.大小限制为100KB</span>
+                                @Html.ValidationMessageFor(model => model.Avatar, null, new Dictionary<string, object>() { { "class", "text-danger" } })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-footer">
+            <input type="submit" class="btn btn-sm btn-primary" value="更新" />
+        </div>
+    </div>
+}
+

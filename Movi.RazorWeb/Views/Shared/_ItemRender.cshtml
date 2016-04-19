@@ -1,0 +1,61 @@
+﻿@using Movi.Model;
+@using Movi.Model.Enums
+@model Media
+
+@{
+    var media = Model;
+    const string detailTarget = "_blank";
+    var detailHref = "/media/" + media.Id;
+}
+
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+    <div class="cus-movie-container">
+        <a href="@(detailHref)" class="cus-movie-cover" target="@(detailTarget)">
+            <img src="@(media.Cover)" alt="@(media.Name)" title="@(media.Name)" class="img-responsive" />
+        </a>
+        <ul class="cus-movie-infos">
+            <li>
+                <a href="@(detailHref)" class="cus-movie-name" target="@(detailTarget)">
+                    <span>
+                        @(media.Name)  -
+                        <span class="cus-movie-year">
+                            @(media.Year)
+                        </span>
+                    </span>
+                </a>
+            </li>
+            <li>
+                <label>评分：</label>
+                <span class="cus-movie-rank-raty" data-rank="@(media.Rank)"></span>
+                @(media.Rank)
+            </li>
+            <li>
+                <label>地区：</label>
+                @(media.Area)
+            </li>
+            <li>
+                <label>导演：</label>
+                @(media.Director)
+            </li>
+            <li>
+                <label>主演：</label>
+                <span class="cus-movie-actors">
+                    @(media.ActorsSerialized))
+                </span>
+            </li>
+            <li>
+                <label>类型：</label>
+                @(media.CategoriesSerialized)
+            </li>
+            <li>
+                <label>
+                    资源：
+                </label>
+                <a href="@(detailHref)" target="@(detailTarget)">
+                    <span class="label label-success">@(media.Resources.Count)</span> 个可用地址
+                </a>
+            </li>
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+</div>

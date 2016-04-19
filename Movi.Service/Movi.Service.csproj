@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C6DC0709-30F7-4737-ACE3-EDA6531A24DF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Movi.Service</RootNamespace>
+    <AssemblyName>Movi.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseService.cs" />
+    <Compile Include="UserService.cs" />
+    <Compile Include="VisitorService.cs" />
+    <Compile Include="SiteConfigService.cs" />
+    <Compile Include="MediaService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Movi.Common\Movi.Common.csproj">
+      <Project>{9be40224-386e-48a8-b9d2-4dc8d0044f0a}</Project>
+      <Name>Movi.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Movi.IRepository\Movi.IRepository.csproj">
+      <Project>{f01ef335-bf29-4395-8ba5-ed37708b8724}</Project>
+      <Name>Movi.IRepository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Movi.IService\Movi.IService.csproj">
+      <Project>{cd7d12e1-b069-49b0-9043-b355fdbe81ea}</Project>
+      <Name>Movi.IService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Movi.Model\Movi.Model.csproj">
+      <Project>{9ae33960-79ad-4825-b372-c907d400b833}</Project>
+      <Name>Movi.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Movi.RepositoryFactory\Movi.RepositoryFactory.csproj">
+      <Project>{00ca6e57-2690-49ca-b104-a2cf2721d49a}</Project>
+      <Name>Movi.RepositoryFactory</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
